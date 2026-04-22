@@ -87,19 +87,99 @@ function cityPlugin(cities) {
         const cityPrep = `в ${city.prepositional}`;
         const cityName = escapeHtml(city.name);
         const region = escapeHtml(city.region);
-        const title = `Наркология для всех ${cityPrep} — выездной нарколог, цены как по рынку`;
-        const description = `Выезд нарколога ${cityPrep}: вывод из запоя, капельницы, снятие ломки, срочный вызов. Средние цены по рынку РФ — уточняйте +7 999 831-22-32.`;
+        const title = `Нарколог на дом ${cityPrep}: вызов, вывод из запоя, цены от — Наркология для всех`;
+        const description = `Вызов нарколога ${cityPrep}: вывод из запоя на дому, капельница, снятие ломки, кодирование, психиатр. Цены «от» по рынку РФ. ${city.name}, ${city.region}. Тел. +7 999 831-22-32.`;
         const canonical = `https://${city.slug}.${apex}/`;
+
+        const faqEntities = [
+          {
+            '@type': 'Question',
+            name: `Сколько стоит вызвать нарколога ${cityPrep}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `На странице указаны ориентиры «от» по типичным прайсам в РФ. Итоговую стоимость выезда в ${city.name} согласуем по телефону +7 999 831-22-32 после уточнения ситуации.`
+            }
+          },
+          {
+            '@type': 'Question',
+            name: `Как заказать вывод из запоя на дому ${cityPrep}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Позвоните на +7 999 831-22-32, назовите адрес в ${city.name} и симптомы. Согласуем время приезда врача и перечень процедур.`
+            }
+          },
+          {
+            '@type': 'Question',
+            name: `Есть ли срочный вызов нарколога ${cityPrep}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Принимаем заявки круглосуточно. Срочность и состав бригады определяются по описанию состояния при звонке.`
+            }
+          },
+          {
+            '@type': 'Question',
+            name: `Делаете ли капельницу от запоя ${cityPrep}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Да, капельница при запое, похмелье и интоксикации — одна из частых услуг; состав подбирает врач по показаниям.`
+            }
+          }
+        ];
 
         const jsonLd = JSON.stringify(
           {
             '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            name: title,
-            description,
-            url: canonical,
-            inLanguage: 'ru-RU',
-            isPartOf: { '@type': 'WebSite', name: 'Наркология для всех', url: mainCanonical }
+            '@graph': [
+              {
+                '@type': 'WebPage',
+                '@id': `${canonical}#webpage`,
+                name: title,
+                description,
+                url: canonical,
+                inLanguage: 'ru-RU',
+                isPartOf: { '@type': 'WebSite', name: 'Наркология для всех', url: mainCanonical },
+                about: [
+                  { '@type': 'Thing', name: 'Вывод из запоя на дому' },
+                  { '@type': 'Thing', name: 'Наркологическая помощь' }
+                ]
+              },
+              {
+                '@type': 'BreadcrumbList',
+                '@id': `${canonical}#breadcrumb`,
+                itemListElement: [
+                  {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Наркология для всех',
+                    item: mainCanonical
+                  },
+                  {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: city.name,
+                    item: canonical
+                  }
+                ]
+              },
+              {
+                '@type': 'MedicalClinic',
+                '@id': `${canonical}#service`,
+                name: `Наркология для всех — ${city.name}`,
+                url: canonical,
+                telephone: '+7-999-831-22-32',
+                medicalSpecialty: ['AddictionMedicine', 'Psychiatry'],
+                areaServed: {
+                  '@type': 'City',
+                  name: city.name,
+                  containedInPlace: { '@type': 'AdministrativeArea', name: city.region }
+                }
+              },
+              {
+                '@type': 'FAQPage',
+                '@id': `${canonical}#faq`,
+                mainEntity: faqEntities
+              }
+            ]
           },
           null,
           0
@@ -219,7 +299,7 @@ export default defineConfig({
     {
       name: 'main-canonical',
       transformIndexHtml(html) {
-        return html.replace(/href="__MAIN_CANONICAL__"/g, `href="${mainCanonical}"`);
+        return html.replaceAll('__MAIN_CANONICAL__', mainCanonical);
       }
     },
     cityPlugin(loadCities())

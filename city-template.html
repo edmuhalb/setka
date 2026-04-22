@@ -122,6 +122,7 @@ __JSONLD__
             </button>
             <ul class="nav__list" id="nav-menu-city">
               <li><a class="nav__link" href="#prices">Услуги и цены</a></li>
+              <li><a class="nav__link" href="#faq">Вопросы</a></li>
               <li><a class="nav__link" href="#hotlines">Контакты</a></li>
               <li><a class="nav__link nav__link--cta" href="__ROOT_URL__">Все города</a></li>
             </ul>
@@ -136,13 +137,23 @@ __JSONLD__
 
     <main id="main">
       <section class="hero hero--ref hero--city">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="Навигационная цепочка">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item">
+                <a class="breadcrumb__link" href="__ROOT_URL__">Наркология для всех</a>
+              </li>
+              <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">__CITY_NAME__</li>
+            </ol>
+          </nav>
+        </div>
         <div class="container hero__grid">
           <div class="hero__copy">
-            <p class="eyebrow eyebrow--on-dark">__REGION__ · выездная служба</p>
-            <h1 class="hero__title hero__title--light">Наркология для всех __CITY_PREP__</h1>
+            <p class="eyebrow eyebrow--on-dark">__REGION__ · нарколог на дому · вывод из запоя</p>
+            <h1 class="hero__title hero__title--light">Нарколог на дом __CITY_PREP__ — вызов, вывод из запоя, цены</h1>
             <p class="hero__lead hero__lead--on-dark">
-              Выезд нарколога на дом: вывод из запоя, капельницы, снятие абстиненции, срочная помощь. Ориентиры по ценам —
-              как по рынку по России; точная стоимость выезда __CITY_PREP__ — по телефону.
+              Вызов нарколога __CITY_PREP__: вывод из запоя на дому, капельница от запоя и похмелья, снятие ломки и
+              абстиненции, кодирование, психиатр. Ориентиры «от» по рынку РФ — в прайсе; итог по телефону для __CITY_NAME__.
             </p>
             <div class="hero__actions">
               <a class="btn btn--primary btn--lg" href="tel:+79998312232">+7 999 831-22-32</a>
@@ -165,10 +176,12 @@ __JSONLD__
 
       <section class="section section--tight section--alt" id="prices">
         <div class="container">
-          <h2 class="section__title">Услуги наркологии и психиатрии __CITY_PREP__</h2>
+          <h2 class="section__title">Нарколог __CITY_PREP__: услуги и цены «от»</h2>
           <p class="section__intro">
-            Частые запросы и ориентир <strong>от</strong> нижней границы открытых прайсов клиник и выездных служб в РФ. Для
-            __CITY_NAME__ (__REGION__) точную сумму и состав назовём по телефону.
+            Запросы вроде «<strong>нарколог __CITY_NAME__</strong>», «<strong>вывод из запоя __CITY_PREP__</strong>»,
+            «<strong>вызвать нарколога</strong>», «<strong>капельница от запоя</strong>» закрываем выездом врача.
+            Ориентир <strong>от</strong> нижней планки прайсов по России; для __CITY_NAME__ (__REGION__) сумму уточним по
+            звонку.
           </p>
           <ul class="offer-grid">
             <li class="offer-card">
@@ -261,7 +274,7 @@ __JSONLD__
 
       <section class="section" id="stats">
         <div class="container">
-          <h2 class="section__title">Наркология для всех __CITY_PREP__</h2>
+          <h2 class="section__title">Выезд нарколога __CITY_PREP__: почему обращаются</h2>
           <ul class="stats">
             <li class="stats__item">
               <span class="stats__value">24/7</span>
@@ -280,6 +293,32 @@ __JSONLD__
               <span class="stats__label">сеть городских страниц</span>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="faq">
+        <div class="container container--narrow">
+          <h2 class="section__title">Частые вопросы: нарколог __CITY_PREP__</h2>
+          <dl class="seo-faq">
+            <dt>Сколько стоит вызвать нарколога __CITY_PREP__?</dt>
+            <dd>
+              На странице — ориентиры «от» по рынку РФ. Итоговую стоимость выезда в __CITY_NAME__ согласуем по телефону
+              <a href="tel:+79998312232">+7&nbsp;999&nbsp;831-22-32</a>.
+            </dd>
+            <dt>Как заказать вывод из запоя на дому __CITY_PREP__?</dt>
+            <dd>
+              Позвоните на +7&nbsp;999&nbsp;831-22-32, назовите адрес в __CITY_NAME__ и симптомы. Согласуем время приезда и
+              перечень процедур.
+            </dd>
+            <dt>Есть ли срочный вызов нарколога __CITY_PREP__?</dt>
+            <dd>
+              Заявки принимаем круглосуточно. Срочность и состав бригады уточняем по описанию состояния при звонке.
+            </dd>
+            <dt>Делаете ли капельницу от запоя __CITY_PREP__?</dt>
+            <dd>
+              Да, капельница при запое, похмелье и интоксикации — частая услуга; состав подбирает врач по показаниям.
+            </dd>
+          </dl>
         </div>
       </section>
 
@@ -310,10 +349,11 @@ __JSONLD__
 
       <section class="section" id="local">
         <div class="container container--narrow">
-          <h2 class="section__title">Лицензии и клиники __CITY_PREP__</h2>
+          <h2 class="section__title">Стационар и лицензии __CITY_PREP__</h2>
           <p class="prose">
-            При необходимости стационара уточняйте лицензии в реестре Росздравнадзора и на сайте регионального минздрава
-            (__REGION__). Мы помогаем с выездом; стационарное лечение — по показаниям и согласованию.
+            Выездной нарколог __CITY_PREP__ не заменяет стационар при тяжёлых показаниях. При необходимости госпитализации
+            проверяйте лицензии в реестре Росздравнадзора и у минздрава __REGION__. Мы организуем помощь на дому; решение о
+            стационаре — по врачу.
           </p>
         </div>
       </section>

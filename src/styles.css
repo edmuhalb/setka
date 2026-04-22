@@ -1260,3 +1260,92 @@ body {
   color: #8ea9a3;
   font-size: 0.92rem;
 }
+
+/* SEO: хлебные крошки и блок FAQ */
+.breadcrumb {
+  padding: 12px 0 0;
+}
+
+.hero--city .breadcrumb {
+  padding-top: 16px;
+  padding-bottom: 4px;
+}
+
+.breadcrumb__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb__item:not(:last-child)::after {
+  content: '/';
+  color: #94a3a8;
+  font-weight: 400;
+}
+
+.breadcrumb__link {
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb__link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb__item--current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hero--city .breadcrumb__list {
+  color: rgba(240, 253, 250, 0.85);
+}
+
+.hero--city .breadcrumb__link {
+  color: #99f6e4;
+}
+
+.hero--city .breadcrumb__item:not(:last-child)::after {
+  color: rgba(240, 253, 250, 0.45);
+}
+
+.hero--city .breadcrumb__item--current {
+  color: #f0fdfa;
+}
+
+.seo-faq {
+  margin: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.seo-faq dt {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.seo-faq dd {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.section--alt .seo-faq dd a {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
