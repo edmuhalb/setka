@@ -4,7 +4,7 @@
  *
  *   map $host $city_slug {
  *     default "";
- *     ~^(?<s>[a-z0-9-]+)\.example\.ru$ $s;
+ *     ~^(?<s>[a-z0-9-]+)\.narkology\.ru$ $s;
  *   }
  *   server {
  *     server_name example.ru *.example.ru;
@@ -15,7 +15,7 @@
  *     }
  *   }
  *
- * Для сборки укажите домен: SITE_APEX_DOMAIN=example.ru npm run build
+ * Для сборки с другим доменом: SITE_APEX_DOMAIN=example.ru npm run build
  */
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
@@ -23,7 +23,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const apex = process.env.SITE_APEX_DOMAIN || 'example-med.ru';
+const apex = process.env.SITE_APEX_DOMAIN || 'narkology.ru';
 const mainCanonical = `https://${apex}/`;
 
 function loadCities() {
@@ -87,8 +87,8 @@ function cityPlugin(cities) {
         const cityPrep = `в ${city.prepositional}`;
         const cityName = escapeHtml(city.name);
         const region = escapeHtml(city.region);
-        const title = `Наркологическая и психиатрическая помощь ${cityPrep} | МедПомощь.инфо`;
-        const description = `Справочно: экстренные шаги, виды помощи и ориентиры по поиску учреждений ${cityPrep}. Не медицинская консультация.`;
+        const title = `Наркология для всех ${cityPrep} — выездной нарколог, цены как по рынку`;
+        const description = `Выезд нарколога ${cityPrep}: вывод из запоя, капельницы, снятие ломки, срочный вызов. Средние цены по рынку РФ — уточняйте +7 999 831-22-32.`;
         const canonical = `https://${city.slug}.${apex}/`;
 
         const jsonLd = JSON.stringify(
@@ -99,7 +99,7 @@ function cityPlugin(cities) {
             description,
             url: canonical,
             inLanguage: 'ru-RU',
-            isPartOf: { '@type': 'WebSite', name: 'МедПомощь.инфо', url: mainCanonical }
+            isPartOf: { '@type': 'WebSite', name: 'Наркология для всех', url: mainCanonical }
           },
           null,
           0
@@ -113,6 +113,7 @@ function cityPlugin(cities) {
           .replaceAll('__BODY_SCRIPTS__', bodyScripts)
           .replaceAll('__ROOT_URL__', rootUrl)
           .replaceAll('__CITY_NAME__', cityName)
+          .replaceAll('__CITY_SLUG__', city.slug)
           .replaceAll('__CITY_PREP__', escapeHtml(cityPrep))
           .replaceAll('__REGION__', region)
           .replaceAll('__JSONLD__', jsonLd);
@@ -151,6 +152,57 @@ Sitemap: ${mainCanonical}sitemap.xml
   };
 }
 
+/**
+ * В dev HTML городов ссылается на /assets/* из последнего build — на vite dev этих файлов нет, страница без стилей.
+ * Заменяем на вход Vite (как в корневом index.html).
+ */
+function patchCityHtmlForViteDev(html) {
+  let h = html.replace(/<link rel="stylesheet"[^>]*href="\/assets\/[^"]+"[^>]*\s*\/?>/gi, '');
+  h = h.replace(/<script type="module"[^>]*src="\/assets\/[^"]+"[^>]*><\/script>/gi, '');
+  if (h.includes('src="/src/main.js"')) return h;
+  return h.replace(
+    '</body>',
+    '    <script type="module" src="/@vite/client"></script>\n    <script type="module" src="/src/main.js"></script>\n  </body>'
+  );
+}
+
+/** Локально: http://moscow.localhost:5173/ → отдаёт dist/cities/moscow/index.html (нужен предварительный build). */
+function subdomainLocalhostPlugin() {
+  const distCities = resolve(root, 'dist/cities');
+
+  return {
+    name: 'subdomain-localhost',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const host = req.headers.host?.split(':')[0] ?? '';
+        const m = /^([a-z0-9-]+)\.localhost$/i.exec(host);
+        if (!m) return next();
+        const pathOnly = (req.url ?? '/').split('?')[0];
+        if (pathOnly !== '/' && pathOnly !== '') return next();
+        const file = resolve(distCities, m[1], 'index.html');
+        if (!existsSync(file)) return next();
+        let html = readFileSync(file, 'utf8');
+        if (server.config.mode === 'development') {
+          html = patchCityHtmlForViteDev(html);
+        }
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(html);
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const host = req.headers.host?.split(':')[0] ?? '';
+        const m = /^([a-z0-9-]+)\.localhost$/i.exec(host);
+        if (!m) return next();
+        const pathOnly = (req.url ?? '/').split('?')[0];
+        if (pathOnly !== '/' && pathOnly !== '') return next();
+        req.url = `/cities/${m[1]}/index.html`;
+        next();
+      });
+    }
+  };
+}
+
 export default defineConfig({
   root,
   publicDir: 'public',
@@ -163,6 +215,7 @@ export default defineConfig({
     }
   },
   plugins: [
+    subdomainLocalhostPlugin(),
     {
       name: 'main-canonical',
       transformIndexHtml(html) {

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Справочник о наркологической и психиатрической помощи в России: экстренные номера, виды помощи, как найти лицензированное учреждение. Страницы для 1000 городов и поддомены для поиска."
+      content="Наркология для всех — выездная наркологическая служба: вывод из запоя на дому, нарколог на дом, капельницы, снятие ломки. Средние цены по рынку. Звонок +7 999 831-22-32."
     />
-    <title>Наркологическая и психиатрическая помощь в России · справочник</title>
+    <title>Наркология для всех — выездная наркологическая помощь 24/7</title>
     <link rel="canonical" href="__MAIN_CANONICAL__" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,41 +20,117 @@
     <a class="skip-link" href="#main">К содержанию</a>
     <div class="topbar">
       <div class="container topbar__inner">
-        <span class="topbar__geo" id="topbar-city-label">Россия</span>
         <div class="topbar__phones">
-          <a class="topbar__phone" href="tel:112">112 — экстренные службы</a>
-          <a class="topbar__phone topbar__phone--soft" href="tel:88002000122">8&nbsp;800&nbsp;2000-122 — телефон доверия</a>
+          <a class="topbar__phone topbar__phone--contact" href="tel:+79998312232"
+            >+7&nbsp;999&nbsp;831-22-32 — вызов врача</a
+          >
         </div>
       </div>
     </div>
 
     <header class="header">
-      <div class="container header__inner">
-        <a class="brand" href="/">
-          <span class="brand__mark" aria-hidden="true"></span>
-          <span class="brand__stack">
-            <span class="brand__title">МедПомощь.инфо</span>
-            <span class="brand__tagline">Справочно о помощи при зависимостях и психическом здоровье</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label="Основная навигация">
-          <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-menu">
-            <span class="nav__toggle-bar"></span>
-            <span class="nav__toggle-bar"></span>
-            <span class="nav__toggle-bar"></span>
-            <span class="visually-hidden">Меню</span>
-          </button>
-          <ul class="nav__list" id="nav-menu">
-            <li><a class="nav__link" href="#about">О проекте</a></li>
-            <li><a class="nav__link" href="#offers">С чего начать</a></li>
-            <li><a class="nav__link" href="#services">Услуги и маршруты</a></li>
-            <li><a class="nav__link" href="#cities">Города</a></li>
-            <li><a class="nav__link" href="#hotlines">Контакты</a></li>
-          </ul>
-        </nav>
-        <div class="header__cta">
-          <a class="btn btn--outline btn--sm" href="#hotlines">Линии поддержки</a>
-          <a class="btn btn--primary btn--sm" href="#cities">Выбрать город</a>
+      <div class="container header__wrap">
+        <div class="header__brand-row" id="city-picker">
+          <a class="brand" href="/">
+            <span class="brand__mark" aria-hidden="true">
+              <svg class="brand__icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="brandGrad" x1="10" y1="6" x2="38" y2="42" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#0f766e" />
+                    <stop offset="1" stop-color="#14b8a6" />
+                  </linearGradient>
+                </defs>
+                <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#brandGrad)" />
+                <path
+                  d="M24 14v20M14 24h20"
+                  stroke="#f0fdfa"
+                  stroke-width="3.2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M32 32.5c0-4-3-6.5-6-6.5s-6 2.5-6 6.5"
+                  stroke="#99f6e4"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            <span class="brand__stack">
+              <span class="brand__title">Наркология для всех</span>
+              <span class="brand__tagline">Выездная наркологическая служба · круглосуточно · конфиденциально</span>
+            </span>
+          </a>
+          <div class="header__city address" aria-label="Выбор города">
+            <div class="city-dd" id="city-dd-root">
+              <button
+                type="button"
+                class="city-dd__trigger address-btn"
+                id="city-dd-trigger"
+                aria-expanded="false"
+                aria-controls="city-dd-panel"
+                aria-haspopup="dialog"
+              >
+                <span class="city-dd__pin" aria-hidden="true">
+                  <svg class="city-dd__pin-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 21s7-4.35 7-10a7 7 0 1 0-14 0c0 5.65 7 10 7 10z"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="12" cy="11" r="2.25" stroke="currentColor" stroke-width="1.75" />
+                  </svg>
+                </span>
+                <span class="address-city city-dd__current" id="city-dd-current">Выберите город</span>
+              </button>
+              <div class="city-dd__backdrop" id="city-dd-backdrop" hidden></div>
+              <div
+                class="city-dd__panel"
+                id="city-dd-panel"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="city-dd-dialog-title"
+                hidden
+              >
+                <div class="city-dd__head">
+                  <span class="city-dd__head-title" id="city-dd-dialog-title">Выберите город</span>
+                  <button type="button" class="city-dd__close" id="city-dd-close" aria-label="Закрыть">×</button>
+                </div>
+                <input
+                  type="search"
+                  id="city-dd-search"
+                  class="city-dd__search"
+                  placeholder="Начните вводить название города"
+                  autocomplete="off"
+                />
+                <div class="city-dd__list" id="city-dd-list"></div>
+              </div>
+            </div>
+            <span id="header-city-label" class="visually-hidden" aria-live="polite"></span>
+            <p id="city-status" class="header__city-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="header__toolbar">
+          <nav class="nav" aria-label="Основная навигация">
+            <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-menu">
+              <span class="nav__toggle-bar"></span>
+              <span class="nav__toggle-bar"></span>
+              <span class="nav__toggle-bar"></span>
+              <span class="visually-hidden">Меню</span>
+            </button>
+            <ul class="nav__list" id="nav-menu">
+              <li><a class="nav__link" href="#about">О службе</a></li>
+              <li><a class="nav__link" href="#prices">Услуги и цены</a></li>
+              <li><a class="nav__link" href="#call">Как вызвать</a></li>
+              <li><a class="nav__link" href="#city-picker">Город</a></li>
+              <li><a class="nav__link" href="#hotlines">Контакты</a></li>
+            </ul>
+          </nav>
+          <div class="header__cta">
+            <a class="btn btn--outline btn--sm" href="tel:+79998312232">Позвонить</a>
+            <a class="btn btn--primary btn--sm" href="#city-picker">Мой город</a>
+          </div>
         </div>
       </div>
     </header>
@@ -63,216 +139,220 @@
       <section class="hero hero--ref">
         <div class="container hero__grid">
           <div class="hero__copy">
-            <p class="eyebrow eyebrow--on-dark">Информация для пациентов и семей</p>
-            <h1 class="hero__title hero__title--light">
-              Наркологическая и психиатрическая помощь: экстренно и планово
-            </h1>
+            <p class="eyebrow eyebrow--on-dark">Выезд нарколога к вам домой или в другое место</p>
+            <h1 class="hero__title hero__title--light">Наркология для всех</h1>
             <p class="hero__lead hero__lead--on-dark">
-              Понятная схема действий: что делать ночью и в выходные, куда звонить, как найти лицензированного
-              специалиста и не попасть на сомнительные «услуги». Отдельные страницы по 1000 городам — в том числе
-              для выдачи в поиске по поддоменам.
+              Профессиональная выездная наркологическая помощь: снятие запоя и интоксикации, капельницы, срочный вызов
+              врача, подготовка к дальнейшему лечению. Работаем по предварительной записи и в срочном порядке — уточняйте
+              по телефону.
             </p>
             <div class="hero__actions">
-              <a class="btn btn--primary btn--lg" href="#cities">Выбрать город</a>
-              <a class="btn btn--ghost btn--lg" href="#hotlines">Экстренные номера</a>
+              <a class="btn btn--primary btn--lg" href="tel:+79998312232">+7 999 831-22-32</a>
+              <a class="btn btn--ghost btn--lg" href="#prices">Услуги и цены</a>
             </div>
             <p class="hero__legal">
-              Сайт справочный: не оказывает медицинские услуги и не заменяет очный приём врача.
+              Имеются противопоказания; объём и схема помощи определяются врачом после осмотра.
             </p>
           </div>
           <div class="hero__panel" aria-hidden="true">
             <div class="hero__panel-inner">
               <p class="hero__panel-kicker">Круглосуточно</p>
-              <p class="hero__panel-title">Если угроза жизни или острое состояние</p>
-              <p class="hero__panel-num">112</p>
-              <p class="hero__panel-note">Единый номер экстренных служб в России</p>
+              <p class="hero__panel-title">Срочный вызов нарколога</p>
+              <p class="hero__panel-num">24/7</p>
+              <p class="hero__panel-note">+7 999 831-22-32</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section section--tight section--alt" id="offers">
+      <section class="section section--tight section--alt" id="prices">
         <div class="container">
-          <h2 class="section__title">С чего начать: четыре опорные точки</h2>
+          <h2 class="section__title">Услуги наркологии и психиатрии</h2>
           <p class="section__intro">
-            По аналогии с блоками услуг на коммерческих сайтах — но без цен и записи: только маршруты и безопасные
-            шаги.
+            Частые запросы и ориентир <strong>от</strong> нижней границы типичных открытых прайсов клиник и выездных служб в
+            РФ. Точную сумму и состав озвучим после краткого описания ситуации.
           </p>
           <ul class="offer-grid">
             <li class="offer-card">
-              <h3 class="offer-card__title">Экстренная ситуация</h3>
+              <h3 class="offer-card__title">Вызов нарколога: осмотр и консультация на дому</h3>
               <ul class="offer-card__list">
-                <li>Угроза жизни, суицид, тяжёлый делирий</li>
-                <li>Вызов 112 и скорой (часто 103)</li>
-                <li>Не откладывайте при острой опасности</li>
+                <li>Сбор анамнеза, оценка состояния</li>
+                <li>Рекомендации по тактике помощи</li>
+                <li>Без процедур — только визит врача</li>
               </ul>
-              <p class="offer-card__price">Приоритет: безопасность</p>
-              <a class="btn btn--block btn--primary" href="#hotlines">Номера и линии</a>
+              <p class="offer-card__price">от 2&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--primary" href="tel:+79998312232">Заказать вызов</a>
             </li>
             <li class="offer-card">
-              <h3 class="offer-card__title">Плановый приём</h3>
+              <h3 class="offer-card__title">Вывод из запоя на дому</h3>
               <ul class="offer-card__list">
-                <li>Психиатр / нарколог в поликлинике</li>
-                <li>ОМС и коммерция — по правилам учреждения</li>
-                <li>Полис, паспорт, список препаратов</li>
+                <li>Детоксикация и медикаменты по показаниям</li>
+                <li>Контроль самочувствия в типовом случае</li>
+                <li>Часто вместе с капельницей</li>
               </ul>
-              <p class="offer-card__price">Стоимость: по тарифам клиники / ОМС</p>
-              <a class="btn btn--block btn--outline" href="#services">Как выбрать маршрут</a>
+              <p class="offer-card__price">от 5&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Уточнить цену</a>
             </li>
             <li class="offer-card">
-              <h3 class="offer-card__title">Психологическая поддержка</h3>
+              <h3 class="offer-card__title">Капельница при запое, похмелье и интоксикации</h3>
               <ul class="offer-card__list">
-                <li>Телефоны доверия и консультации</li>
-                <li>Помощь близким и созависимым</li>
-                <li>Не заменяет медицинскую помощь</li>
+                <li>Регидратация, витамины, симптоматика</li>
+                <li>Состав подбирается врачом</li>
+                <li>Часто совмещают с осмотром</li>
               </ul>
-              <p class="offer-card__price">Часть линий — бесплатно</p>
-              <a class="btn btn--block btn--outline" href="#hotlines">Открыть список</a>
+              <p class="offer-card__price">от 5&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Вызвать бригаду</a>
             </li>
             <li class="offer-card">
-              <h3 class="offer-card__title">Поиск учреждения</h3>
+              <h3 class="offer-card__title">Снятие абстинентного синдрома и ломки</h3>
               <ul class="offer-card__list">
-                <li>Реестры Росздравнадзора</li>
-                <li>Региональный минздрав</li>
-                <li>Локальная страница города на сайте</li>
+                <li>Тревога, бессонница, соматика после отмены</li>
+                <li>Медикаментозная коррекция по протоколу</li>
+                <li>Сложные случаи — по согласованию</li>
               </ul>
-              <p class="offer-card__price">Проверка лицензий — обязательна</p>
-              <a class="btn btn--block btn--outline" href="#cities">Перейти к городу</a>
+              <p class="offer-card__price">от 6&nbsp;500 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Консультация</a>
+            </li>
+            <li class="offer-card">
+              <h3 class="offer-card__title">Кодирование от алкогольной зависимости</h3>
+              <ul class="offer-card__list">
+                <li>Подшивание, «торпеда», препараты по показаниям</li>
+                <li>После осмотра и согласия пациента</li>
+                <li>Формат и препарат выбирает врач</li>
+              </ul>
+              <p class="offer-card__price">от 4&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Записаться</a>
+            </li>
+            <li class="offer-card">
+              <h3 class="offer-card__title">Вызов психиатра на дом</h3>
+              <ul class="offer-card__list">
+                <li>Осмотр, беседа, оценка состояния</li>
+                <li>Назначение терапии при показаниях</li>
+                <li>Кризисные и пограничные состояния</li>
+              </ul>
+              <p class="offer-card__price">от 2&nbsp;500 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Вызвать врача</a>
+            </li>
+            <li class="offer-card">
+              <h3 class="offer-card__title">Психотерапия: первичная консультация</h3>
+              <ul class="offer-card__list">
+                <li>Сессия у психотерапевта или консультанта</li>
+                <li>Зависимости, тревога, депрессия, кризис</li>
+                <li>Очно или онлайн — по договорённости</li>
+              </ul>
+              <p class="offer-card__price">от 3&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Уточнить</a>
+            </li>
+            <li class="offer-card">
+              <h3 class="offer-card__title">УБОД (ультрабыстрая опиоидная детоксикация)</h3>
+              <ul class="offer-card__list">
+                <li>Только в стационаре, не на дому</li>
+                <li>Показания и риски оценивает врач</li>
+                <li>Организация госпитализации — по запросу</li>
+              </ul>
+              <p class="offer-card__price">от 35&nbsp;000 ₽</p>
+              <a class="btn btn--block btn--outline" href="tel:+79998312232">Записаться / уточнить</a>
             </li>
           </ul>
+          <p class="price-disclaimer">
+            Цена «от» — ориентир по рынку, не публичная оферта. Итог после уточнения запроса:
+            <a href="tel:+79998312232">+7&nbsp;999&nbsp;831-22-32</a>.
+          </p>
         </div>
       </section>
 
       <section class="section" id="stats">
         <div class="container">
-          <h2 class="section__title">О проекте в цифрах</h2>
+          <h2 class="section__title">Почему обращаются к нам</h2>
           <ul class="stats">
             <li class="stats__item">
-              <span class="stats__value">1000</span>
-              <span class="stats__label">городов с отдельными страницами</span>
-            </li>
-            <li class="stats__item">
               <span class="stats__value">24/7</span>
-              <span class="stats__label">экстренная связь через 112</span>
+              <span class="stats__label">приём заявок и консультаций</span>
             </li>
             <li class="stats__item">
-              <span class="stats__value">0 ₽</span>
-              <span class="stats__label">доступ к справочным материалам</span>
+              <span class="stats__value">Выезд</span>
+              <span class="stats__label">нарколог к вам, без очередей в регистратуре</span>
             </li>
             <li class="stats__item">
-              <span class="stats__value">1</span>
-              <span class="stats__label">поддомен на город для SEO*</span>
+              <span class="stats__value">1000+</span>
+              <span class="stats__label">городов — локальные страницы для поиска</span>
+            </li>
+            <li class="stats__item">
+              <span class="stats__value">*</span>
+              <span class="stats__label">конфиденциальность и уважение к пациенту</span>
             </li>
           </ul>
-          <p class="stats__footnote">
-            *После настройки DNS wildcard и веб-сервера; технические подсказки — в комментариях к
-            <code class="inline-code">vite.config.js</code>.
-          </p>
         </div>
       </section>
 
-      <section class="section section--alt" id="services">
-        <div class="container">
-          <h2 class="section__title">Услуги и маршруты (обзор)</h2>
-          <p class="section__intro">
-            Структура близка к типовым клиническим сайтам: срочные и плановые направления — чтобы быстрее ориентироваться.
-          </p>
-          <div class="service-split">
-            <div class="service-split__col">
-              <h3 class="service-split__heading">Срочная и стационарная помощь</h3>
-              <ul class="service-split__links">
-                <li>Неотложная психиатрия / наблюдение в стационаре</li>
-                <li>Детоксикация и снятие острой интоксикации — по назначению врача</li>
-                <li>Реабилитационные программы — очно, с медицинским сопровождением</li>
-              </ul>
-            </div>
-            <div class="service-split__col">
-              <h3 class="service-split__heading">Амбулаторно и на дому</h3>
-              <ul class="service-split__links">
-                <li>Приём нарколога / психиатра, динамическое наблюдение</li>
-                <li>Психотерапия, группы поддержки (по показаниям)</li>
-                <li>Работа с семьёй, созависимость</li>
-              </ul>
-            </div>
-          </div>
+      <section class="section section--alt" id="call">
+        <div class="container container--narrow">
+          <h2 class="section__title">Как вызвать врача</h2>
+          <ol class="steps">
+            <li><strong>Позвоните</strong> на <a href="tel:+79998312232">+7&nbsp;999&nbsp;831-22-32</a> или оставьте заявку.</li>
+            <li><strong>Опишите ситуацию</strong> — стаж, последний приём, самочувствие, сопутствующие диагнозы.</li>
+            <li><strong>Согласуйте время</strong> выезда и ориентировочную стоимость.</li>
+            <li><strong>Подготовьте документы</strong> при наличии: паспорт, полис, список препаратов.</li>
+          </ol>
         </div>
       </section>
 
       <section class="cta-band" id="consult">
         <div class="container cta-band__inner">
           <div>
-            <h2 class="cta-band__title">Нужна линия поддержки прямо сейчас?</h2>
+            <h2 class="cta-band__title">Вызов нарколога — по телефону</h2>
             <p class="cta-band__text">
-              Ниже — общероссийские номера. Для медицинской неотложности используйте 112. Мы не ведём приёма
-              обращений и не подменяем диспетчера скорой помощи.
+              Расскажите диспетчеру симптомы и город: подскажем ориентир по цене и срокам выезда.
             </p>
           </div>
-          <div class="cta-band__actions">
-            <a class="cta-band__phone" href="tel:88002000122">8&nbsp;800&nbsp;2000-122</a>
-            <span class="cta-band__hint">Телефон доверия (дети, подростки, родители)</span>
+          <div class="cta-band__actions cta-band__actions--stack">
+            <a class="cta-band__phone" href="tel:+79998312232">+7&nbsp;999&nbsp;831-22-32</a>
+            <span class="cta-band__hint">Наркология для всех — выездная служба</span>
           </div>
         </div>
       </section>
 
       <section class="section" id="about">
         <div class="container container--narrow">
-          <h2 class="section__title">Что это за сайт</h2>
+          <h2 class="section__title">О службе «Наркология для всех»</h2>
           <div class="prose">
             <p>
-              Это нейтральный справочник: без рекламы конкретной клиники, без «чудо-методов» и без сбора данных о
-              здоровье. Мы описываем типовые шаги и даём локальные SEO-страницы по городам.
+              Мы специализируемся на <strong>выездной наркологической помощи</strong>: приезжаем к пациенту, оцениваем
+              состояние, проводим необходимые манипуляции в рамках лицензируемой деятельности и помогаем спланировать
+              дальнейшее лечение.
             </p>
             <p>
-              В отличие от коммерческих сайтов клиник, здесь нет записи к врачу и прайс-листов — только
-              образовательный контент и ссылки на официальные экстренные сервисы.
+              В разделе услуг указаны ориентиры <strong>от</strong> нижней границы типичных прайсов по РФ. Финальную сумму
+              согласуем после уточнения запроса.
+            </p>
+            <p>
+              Реквизиты, лицензии и юридическое наименование организации разместите в подвале или на отдельной странице
+              по требованию закона — здесь оставьте актуальные данные вашей службы.
             </p>
           </div>
         </div>
       </section>
 
       <section class="section section--alt" id="cities">
-        <div class="container">
-          <h2 class="section__title">Выберите город</h2>
-          <p class="section__intro">
-            1000 городов с наибольшим населением. Локальная страница повторяет структуру главной и подходит для
-            выдачи по запросам «в вашем городе».
-          </p>
-          <div class="city-picker">
-            <label class="city-picker__label" for="city-search">Город</label>
-            <input
-              id="city-search"
-              class="city-picker__input"
-              type="search"
-              name="city"
-              autocomplete="off"
-              placeholder="Например: Москва, Казань, Новосибирск"
-              list="city-list"
-              aria-describedby="city-hint"
-            />
-            <datalist id="city-list"></datalist>
-            <p id="city-hint" class="city-picker__hint">
-              После выбора откроется локальная страница (в продакшене — также по поддомену вида
-              <code class="inline-code">gorod.ваш-домен.ru</code>).
+        <div class="container container--narrow">
+          <h2 class="section__title">Выезд по городам России</h2>
+          <div class="prose">
+            <p>
+              Выберите населённый пункт в списке вверху — откроется локальная страница (в т.ч. для поиска:
+              <code class="inline-code">gorod.narkology.ru</code>).
             </p>
-            <div class="city-picker__actions">
-              <button type="button" class="btn btn--primary" id="city-open">Открыть страницу города</button>
-            </div>
-            <p id="city-status" class="city-picker__status" role="status" aria-live="polite"></p>
+            <p><a class="city-bar__link" href="#city-picker">Выбрать город</a></p>
           </div>
         </div>
       </section>
 
       <section class="section" id="hotlines">
         <div class="container container--narrow">
-          <h2 class="section__title">Общероссийские контакты</h2>
+          <h2 class="section__title">Телефоны</h2>
           <ul class="hotlines">
             <li>
-              <span class="hotlines__num">8&nbsp;800&nbsp;2000-122</span>
-              <span class="hotlines__desc">Телефон доверия для детей, подростков и родителей.</span>
-            </li>
-            <li>
-              <span class="hotlines__num">112</span>
-              <span class="hotlines__desc">Экстренные службы.</span>
+              <span class="hotlines__num"><a href="tel:+79998312232">+7&nbsp;999&nbsp;831-22-32</a></span>
+              <span class="hotlines__desc">«Наркология для всех» — вызов врача, консультация, стоимость услуг.</span>
             </li>
           </ul>
         </div>
@@ -281,12 +361,11 @@
 
     <footer class="footer">
       <div class="container footer__inner">
-        <p class="footer__brand">МедПомощь.инфо</p>
+        <p class="footer__brand">Наркология для всех</p>
         <p class="footer__note">
-          Информация не является медицинской услугой. Рекомендуем обращаться в лицензированные учреждения и не
-          откладывать неотложную помощь.
+          Выездная наркологическая помощь. Информация на сайте не заменяет очный осмотр врача.
         </p>
-        <p class="footer__copy">© <span id="year"></span></p>
+        <p class="footer__copy">© <span id="year"></span> Наркология для всех</p>
       </div>
     </footer>
 
